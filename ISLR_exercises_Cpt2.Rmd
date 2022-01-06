@@ -1,0 +1,217 @@
+---
+title: "ISLR_exercises"
+output:
+  word_document: default
+  pdf_document: default
+---
+Chapter 2
+1.(a)
+```{r}
+#inflexible, a flexible model might try too hard to fit all data points
+```
+1.(b)
+```{r}
+#inflexible, a flexible model might try too hard to utilize all predictors
+```
+1.(c)
+```{r}
+#flexible, an inflexible model might neglect the underlying non-linear relationship
+```
+1.(d)
+```{r}
+#inflexible, a flexible model might try too hard to fit the noise
+```
+2.(a)
+```{r}
+#regression, inference, n=500, p=3
+```
+2.(b)
+```{r}
+#classification, prediction, n=20, p=13
+```
+2.(c)
+```{r}
+#regression, prediction, n=52, p=3
+```
+3.(a)
+```{r}
+#N/A
+```
+3.(b)
+```{r}
+#Bayes error is constant
+#training error drops monotonically as model get more complex and so is bias, while variance moves towards the opposite direction
+#test error = bias^2 + variance + Bayes error
+```
+4.(a)
+```{r}
+#N/A
+```
+4.(b)
+```{r}
+#N/A
+```
+4.(c)
+```{r}
+#N/A
+```
+5
+```{r}
+#pros:Less bias, cons:More variance, more likely to overfit
+#true relationship is complex
+#true relationship is simple
+```
+6
+```{r}
+#whether we need to estimate the parameters in the final form of the model
+#easier to interpret, easier to do inference
+#oversimplify the true relationship
+```
+7.(a)
+```{r}
+#Obs, Dis
+#1,   3
+#2,   2
+#3,   3.16
+#4    2.24
+#5,   1.41
+#6,   1.73
+```
+7.(b)
+```{r}
+#green, one green
+```
+7.(c)
+```{r}
+#red, two red, one green
+```
+7.(d)
+```{r}
+#small, we need a flexible model
+```
+8.(a)
+```{r}
+library(ISLR)
+attach(College)
+college <- College
+```
+8.(b)
+```{r}
+head(rownames(college))
+head(college)
+```
+8.(c).i
+```{r}
+summary(college)
+```
+8.(c).ii
+```{r}
+pairs(college[,1:10])
+```
+8.(c).iii
+```{r}
+plot(Private, Outstate, ylab = "Outstate", xlab = "Private")
+```
+8.(c).iv
+```{r}
+Elite <- rep("No", nrow (college))
+Elite[college$Top10perc > 50] <- " Yes "
+Elite <- as.factor(Elite)
+college <- data.frame(college, Elite)
+summary(Elite)
+plot(Elite, Outstate, ylab = "Outstate", xlab = "Elite")
+```
+8.(c).v
+```{r}
+par(mfrow = c(2, 2))
+hist(Outstate)
+hist(Apps)
+hist(Accept)
+hist(Enroll)
+```
+8.(c).vi
+```{r}
+#garbage system
+```
+9.(a)
+```{r}
+auto <- na.omit(Auto)
+summary(auto)
+#name is qualitative and the rest is quantitative
+```
+9.(b)
+```{r}
+for(c in (1:(ncol(auto)-1))){
+  print(c(colnames(auto)[c], range(auto[, c])))
+}
+```
+9.(c)
+```{r}
+for(c in (1:(ncol(auto)-1))){
+  print(c(colnames(auto)[c], mean(auto[, c]), sd(auto[, c])))
+}
+```
+9.(d)
+```{r}
+auto_adj <- auto[-c(10:85), ]
+for(c in (1:(ncol(auto_adj)-1))){
+  print(c(colnames(auto)[c], range(auto[, c]), mean(auto[, c]), sd(auto[, c])))
+}
+```
+9.(e)
+```{r}
+pairs(auto)
+#garbage system
+```
+9.(f)
+```{r}
+#except name, obvious pattern
+```
+10.(a)
+```{r}
+library(ISLR2)
+head(Boston)
+?Boston
+boston <- Boston
+dim(boston)
+names(boston)
+#each row is a suburb in Boston
+```
+10.(b)
+```{r}
+pairs(boston)
+```
+10.(c)
+```{r}
+#all other predictors, e.g.
+attach(boston)
+plot(crim, zn)
+#only those without residential land zoned for lots over 25,000 sq.ft. has crime
+```
+10.(d)
+```{r}
+#yes, yes, no
+hist(crim)
+hist(crim[crim>20])
+hist(tax)
+hist(ptratio)
+```
+10.(e)
+```{r}
+sum(chas)
+```
+10.(f)
+```{r}
+median(ptratio)
+```
+10.(g)
+```{r}
+boston[medv == min(medv), ]
+```
+10.(h)
+```{r}
+sum(rm > 7)
+sum(rm > 8)
+boston[rm > 8, ]
+#all between 8 and 9
+```
